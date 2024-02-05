@@ -1,0 +1,32 @@
+﻿  Task_One.cpp
+C:\Users\User\Desktop\Task_One\Task_One.cpp(12,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\User\Desktop\Task_One\Task_One_Header.h(12,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\Task_One\Task_One.cpp(20): message : выполняется компиляция ссылки на экземпляр шаблон функции "T *FillArray<long>(T *,const unsigned long)"
+          with
+          [
+              T=long
+          ]
+C:\Users\User\Desktop\Task_One\Task_One_Header.h(47,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\Task_One\Task_One.cpp(21): message : выполняется компиляция ссылки на экземпляр шаблон функции "T *SortArray<long>(T *,const unsigned long)"
+          with
+          [
+              T=long
+          ]
+C:\Users\User\Desktop\Task_One\Task_One_Header.h(25,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\Task_One\Task_One.cpp(22): message : выполняется компиляция ссылки на экземпляр шаблон функции "void SaveArray<long>(const T *,const unsigned long,const std::string)"
+          with
+          [
+              T=long
+          ]
+C:\Users\User\Desktop\Task_One\Task_One_Header.h(37,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\Task_One\Task_One_Header.h(49): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool IsSorted<T>(const T *,const unsigned long)"
+          with
+          [
+              T=long
+          ]
+C:\Users\User\Desktop\Task_One\Task_One.cpp(21): message : выполняется компиляция ссылки на экземпляр шаблон функции "T *SortArray<long>(T *,const unsigned long)"
+          with
+          [
+              T=long
+          ]
+  Task_One.vcxproj -> C:\Users\User\Desktop\Task_One\x64\Debug\Task_One.exe
