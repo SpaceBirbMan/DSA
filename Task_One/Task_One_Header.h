@@ -5,12 +5,22 @@
 
 //author Sosnov.K.A
 
+/// Получение случайного числа
+#include <random>
+
+long getRandomNumber(long min, long max) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<long> distrib(min, max);
+	return distrib(gen);
+}
+
 /// Заполняет массив
 template <typename T>
-T* FillArray(T* array, const unsigned long N)
+T* FillArray(T* array, const unsigned long N, unsigned long min, unsigned long max)
 {
 	for (int i = 0; i < N; i++)
-		array[i] = rand();
+		array[i] = getRandomNumber(min, max);
 	return array;
 }
 
@@ -20,7 +30,7 @@ void SaveArray(const T* array, const unsigned long N, const std::string name)
 {
 	std::ofstream out;
 	out.open(name);
-	//сделать выброс исключения
+	// сделать выброс исключения
 	if (out.is_open())
 		for (int i = 0; i < N; i++)
 			out << array[i] << std::endl;
@@ -29,7 +39,7 @@ void SaveArray(const T* array, const unsigned long N, const std::string name)
 }
 
 
-///Проверяет отсортированноость массива
+/// Проверяет отсортированноость массива
  template <typename T>
  bool IsSorted(const T* array, const unsigned long N)
  {
@@ -40,20 +50,91 @@ void SaveArray(const T* array, const unsigned long N, const std::string name)
  }
 
 /// Сортирует массив
+ template <typename T>
+ T* SortArray(T* array, const unsigned long N)
+ {
+	 bool swapped; // лучше так, потому что IsSorted будет долго работать на больших массивах
+	 for (int i = 0; i < N - 1; ++i)
+	 {
+		 swapped = false;
+		 for (int j = 0; j < N - i - 1; ++j)
+		 {
+			 if (array[j] > array[j + 1])
+			 {
+				 T temp = array[j];
+				 array[j] = array[j + 1];
+				 array[j + 1] = temp;
+				 swapped = true;
+			 }
+		 }
+		 // если на данной итерации не было обменов, значит массив уже отсортирован
+		 if (!swapped)
+			 break;
+	 }
+	 return array;
+ }
+
+
+/// Ищет элемент в отсортированном массиве методом бинарного поиска
 template <typename T>
-T* SortArray(T* array, const unsigned long N)
+int BinarySearch(const T* array, const unsigned long N, const T& key)
 {
-	T temp = 0; //хранилище значения для замены чисел в массиве
-	for (int i = 0; i < N - 1; i++)
+	int left = 0;
+	int right = N - 1;
+	while (left <= right)
 	{
-		if (not IsSorted(array, N)) //проверка на отсортированность массива
-			if (array[i] > array[i + 1]) 
-			{ 
-				temp = array[i]; 
-				array[i] = array[i + 1]; 
-				array[i + 1] = temp; 
-				//i = 0; 
-			}
+		int mid = left + (right - left) / 2;
+		if (array[mid] == key)
+			return mid;
+		if (array[mid] < key)
+			left = mid + 1;
+		else
+			right = mid - 1;
 	}
-	return array;
+	return -1;
 }
+
+/// Ищет элемент в неотсортированном массиве методом линейного поиска
+template <typename T>
+int LinearSearch(const T* array, const unsigned long N, const T& key)
+{
+	for (int i = 0; i < N; ++i)
+	{
+		if (array[i] == key)
+			return i;
+	}
+	return -1;
+}
+
+///// Powered by ChatGPT /////
+
+template <typename T> // работать отказывается
+int Partition(T* array, int low, int high)
+{
+	T pivot = array[high]; // Опорный элемент
+	int i = low - 1; // Индекс меньшего элемента
+
+	for (int j = low; j <= high - 1; j++)
+	{
+		// Если текущий элемент меньше или равен опорному
+		if (array[j] <= pivot)
+		{
+			i++; // Увеличиваем индекс меньшего элемента
+			std::swap(array[i], array[j]);
+		}
+	}
+	std::swap(array[i + 1], array[high]);
+	return i + 1;
+}
+template <typename T>
+void QuickSort(T* array, int low, int high) // min и max выбираются исходя из данных, а как, я не понимаю
+{
+	if (low < high)
+	{
+		int pivot = Partition(array, low, high); // Находим опорный элемент
+		QuickSort(array, low, pivot - 1); // Сортируем элементы меньше опорного
+		QuickSort(array, pivot + 1, high); // Сортируем элементы больше опорного
+	}
+}
+
+//////////////////////////////
