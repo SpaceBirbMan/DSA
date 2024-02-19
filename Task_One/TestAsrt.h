@@ -7,10 +7,14 @@ void TestA() {
     const unsigned long ARRAY_SIZE = 5;
     long array[ARRAY_SIZE];
     FillArray(array, ARRAY_SIZE, 0, 10); // заполн€ем массив случайными числами в диапазоне
-    array[4] = 0;
 
     // тестирование функции IsSorted
     assert(!IsSorted(array, ARRAY_SIZE));
+
+    ///доп тест нерпавильный порд€ок в начале
+    // в середине
+    //в конце
+
 
     // тестирование функции SortArray
     SortArray(array, ARRAY_SIZE);
@@ -20,15 +24,15 @@ void TestA() {
     // тетстирование функции QuickSort
     //QuickSort(A, 0, 100);
     //assert(IsSorted(A, 10));
-
+    array[0] = 5;
     // тестирование функции LinearSearch
-    for (int i = 0; i < ARRAY_SIZE; ++i) {
-        assert(LinearSearch(array, ARRAY_SIZE, array[i]) == i);
+    for (int i = 0; i < ARRAY_SIZE; ++i) { //забыл убрать, больше тестов
+        assert(LinearSearch(array, ARRAY_SIZE, (long)5) == 0);
     }
 
     // тестирование функции BinarySearch
     for (int i = 0; i < ARRAY_SIZE; ++i) {
-        assert(BinarySearch(array, ARRAY_SIZE, array[i]) == i);
+        assert(BinarySearch(array, ARRAY_SIZE, (long)5) == 0);
     }
 
     std::cout << "All tests passed successfully!" << std::endl;

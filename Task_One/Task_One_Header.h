@@ -8,16 +8,18 @@
 /// Получение случайного числа
 #include <random>
 
+/// Рандомайзер, кочующий второй год из файла в файл
 long getRandomNumber(long min, long max) {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<long> distrib(min, max);
 	return distrib(gen);
 }
+//для float найти
 
 /// Заполняет массив
 template <typename T>
-T* FillArray(T* array, const unsigned long N, unsigned long min, unsigned long max)
+T* FillArray(T* array, const unsigned long N, unsigned long min, unsigned long max) //size_t везде для индексов в т.ч.
 {
 	for (int i = 0; i < N; i++)
 		array[i] = getRandomNumber(min, max);
@@ -26,11 +28,11 @@ T* FillArray(T* array, const unsigned long N, unsigned long min, unsigned long m
 
 /// Записывает массив в тескстовый файл
 template <typename T>
-void SaveArray(const T* array, const unsigned long N, const std::string name)
+void SaveArray(const T* array, const unsigned long N, const std::string &name)
 {
 	std::ofstream out;
 	out.open(name);
-	// сделать выброс исключения
+	// todo: сделать выброс исключения
 	if (out.is_open())
 		for (int i = 0; i < N; i++)
 			out << array[i] << std::endl;
@@ -51,7 +53,7 @@ void SaveArray(const T* array, const unsigned long N, const std::string name)
 
 /// Сортирует массив
  template <typename T>
- T* SortArray(T* array, const unsigned long N)
+ T* SortArray(T* array, const unsigned long N) //дополнить как сортирует
  {
 	 bool swapped; // лучше так, потому что IsSorted будет долго работать на больших массивах
 	 for (int i = 0; i < N - 1; ++i)
@@ -76,6 +78,8 @@ void SaveArray(const T* array, const unsigned long N, const std::string name)
 
 
 /// Ищет элемент в отсортированном массиве методом бинарного поиска
+/// На вход: массив любого типа, размер, ключ			//везде так и поточнее/покороче
+/// На выход: положение элеметна в массиве
 template <typename T>
 int BinarySearch(const T* array, const unsigned long N, const T& key)
 {
@@ -95,8 +99,10 @@ int BinarySearch(const T* array, const unsigned long N, const T& key)
 }
 
 /// Ищет элемент в неотсортированном массиве методом линейного поиска
+/// На вход: массив любого типа, размер, ключ
+/// На выход: положение элеметна в массиве
 template <typename T>
-int LinearSearch(const T* array, const unsigned long N, const T& key)
+int LinearSearch(const T* array, unsigned long N, const T& key)
 {
 	for (int i = 0; i < N; ++i)
 	{
